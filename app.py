@@ -25,9 +25,9 @@ dates = list(historical_prices.index)  # Dates are pandas.Timestamp objects
 prices = list(historical_prices.values)
 
 # Define Bitcoin halving dates
-halving_dates = ['2016-07-09', '2020-05-11', '2024-04-19']
+halving = ['2016-07-09', '2020-05-11', '2024-04-19']
 # Convert halving dates to pandas.Timestamp and ensure they are tz-naive
-halving_dates = [pd.Timestamp(date).tz_localize(None) for date in halving_dates]
+halving_dates = [pd.Timestamp(date).tz_localize(None) for date in halving]
 
 # Ensure all dates in the dataset are tz-naive
 dates = [pd.Timestamp(date).tz_localize(None) for date in dates]
@@ -60,7 +60,7 @@ for i, (split_dates, split_prices) in enumerate(split_data):
     # Normalize prices by dividing each price by the first price in the cycle
     normalized_prices = [price / split_prices[0] for price in split_prices]
     
-    ax.plot(normalized_dates, normalized_prices, label=f'Cycle {i+1}')  # Removed marker='o'
+    ax.plot(normalized_dates, normalized_prices, label=f'Halving {i+2}' +' ('+ halving[i]+ ')')  # Removed marker='o'
 
 ax.set_title('Bitcoin Price Over Time (Overlapping Halving Cycles, Normalized)')
 ax.set_xlabel('Days Since Cycle Start')
